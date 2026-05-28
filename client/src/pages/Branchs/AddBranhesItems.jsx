@@ -119,7 +119,6 @@ const AddBranchesItems = () => {
 
 
     fetchDataFromAPI();
-    console.log(fetchData);
     // Call the fetch function when the component mounts
   }, [fetchDataFromAPI]);
   const branches = fetchData?.length > 0 ? fetchData[0].subCategories : [];
