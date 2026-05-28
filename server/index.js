@@ -27,6 +27,7 @@ app.use(cookieParser());
 const allowedOrigins = [
   'http://localhost:3000',
   'https://unicodenew.vercel.app',
+  'https://warehouse.rootments.live',
 ];
 
 const corsOptions = {
