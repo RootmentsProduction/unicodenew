@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./home.css";
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
@@ -136,9 +136,7 @@ const HomePage = () => {
 
   const [fetchData, setFetchData] = useState([]); // State to store the fetched data
 
-  useEffect(() => {
-    // Fetch function inside useEffect
-    const fetchDataFromAPI = async () => {
+  const fetchDataFromAPI = useCallback(async () => {
       try {
         const response = await fetch(baseUrl.baseUrl + "api/fetchAllData");
         const data = await response.json();
@@ -146,12 +144,12 @@ const HomePage = () => {
       } catch (error) {
         console.error("Error fetching data:", error);
       }
-    };
-
+    }, []);
+  useEffect(() => {
     fetchDataFromAPI();
     console.log(fetchData);
     // Call the fetch function when the component mounts
-  }, []);
+  }, [fetchDataFromAPI]);
   const branches = fetchData?.length > 0 ? fetchData[0].subCategories : [];
   console.log(branches);
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import './addbranchesitems.css';
 import Nav from '../../components/Nav';
 import { Link } from 'react-router-dom';
@@ -105,7 +105,7 @@ const AddBranchesItems = () => {
 
 
   const [fetchData, setFetchData] = useState([]); // State to store the fetched data
-  const fetchDataFromAPI = async () => {
+  const fetchDataFromAPI = useCallback(async () => {
     try {
       const response = await fetch(baseUrl.baseUrl + "api/fetchAllData");
       const data = await response.json();
@@ -113,7 +113,7 @@ const AddBranchesItems = () => {
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-  };
+  }, []);
   useEffect(() => {
     // Fetch function inside useEffect
 
@@ -121,7 +121,7 @@ const AddBranchesItems = () => {
     fetchDataFromAPI();
     console.log(fetchData);
     // Call the fetch function when the component mounts
-  }, []);
+  }, [fetchDataFromAPI]);
   const branches = fetchData?.length > 0 ? fetchData[0].subCategories : [];
   console.log(branches);
 
